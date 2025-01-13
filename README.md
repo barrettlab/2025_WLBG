@@ -10,7 +10,7 @@ Craig Barrett (1), Carrie Wu (2), Cynthia Huebner (1,3)
 3. USDA Forest Service
 
 
-# 1. Rename fastq files to get rid of _L001, _001, and underscore (_S). Only underscore should be _R1 and _R2.
+## 1. Rename fastq files to get rid of _L001, _001, and underscore (_S). Only underscore should be _R1 and _R2.
 
 ```bash
 mkdir reads   # copy all read files to this directory
@@ -20,10 +20,10 @@ rename 's/_L001//' *.fastq.gz
 rename 's/_S/-S/' *.fastq.gz
 ```
 
-# 2. Process reads with fastp
+## 2. Process reads with fastp
 
 ```bash
-# 3. Loop through paired-end files
+# Loop through paired-end files
 
 cd ..   # run from one level above reads and fastp
 
@@ -38,7 +38,7 @@ for file in reads/*_R1.fastq.gz; do
 done
 ```
 
-# 4. Make a samples file (delete e.g. "undetermined" if that is in the list)
+## 3. Make a samples file (delete e.g. "undetermined" if that is in the list)
 
 ```bash
 cd fastp
@@ -82,13 +82,13 @@ TGCTCTTCCGATCTGACGTGTGTGTGTGTTC
 TGCTCTTCCGATCTGACTGTGTGTGTGTGAC
 ```
 
-# 5. Unzip reads in fastp folder (may take a few minutes)
+## 4. Unzip reads in fastp folder (may take a few minutes)
 
 ```bash
 pigz -d fastp/*.fastq.gz
 ```
 
-# 6. Begin assembling with pseudo-reference with ISSR-seq pipeline (may take a a few hours! Sit tight.)
+## 5. Begin assembling with pseudo-reference with ISSR-seq pipeline (may take a a few hours! Sit tight.)
 
 ```bash
 nohup ISSRseq_AssembleReference.sh -O 13Jan_pseudoref -I fastp -S samples.txt -R  MD-Baltimore-LOCH-11-S24 -T 32 -M 35 -H 0 -P migseq_primers.txt -K 31 -L 100 -X 50 -N O_hirtellus_plastome_KU291473.fasta &
@@ -101,7 +101,7 @@ nohup ISSRseq_AssembleReference.sh -O 13Jan_pseudoref -I fastp -S samples.txt -R
 
 ```
 
-# Argument interpretation:
+### Argument interpretation:
 
 ```bash
 -O [desired prefix of output directory]
@@ -129,7 +129,7 @@ nohup ISSRseq_AssembleReference.sh -O 13Jan_pseudoref -I fastp -S samples.txt -R
 -X [bbduk trimming kmer, equal to or longer than shortest primer used]
 ```
 
-# 7. Create BAM files (mapping reads to pseudoreference, filtering, removing duplicates, etc.)
+## 6. Create BAM files (mapping reads to pseudoreference, filtering, removing duplicates, etc.)
 
 ```bash
 nohup ISSRseq_CreateBAMs.sh -O 13Jan_pseudoref_2025_01_13_11_19 -T 32 &
@@ -138,7 +138,7 @@ nohup ISSRseq_CreateBAMs.sh -O 13Jan_pseudoref_2025_01_13_11_19 -T 32 &
 
 ```
 
-# 8. Call biallelic variants with GATK4
+## 7. Call biallelic variants with GATK4
 
 ```bash
 -O [desired prefix of output directory]
@@ -153,3 +153,4 @@ nohup ISSRseq_AnalyzeBAMs.sh -O 13Jan_pseudoref_2025_01_13_11_19 -T 30 -P 8 &
 
 # output will be a vcf file called 'filtered_snps.vcf'
 ```
+
