@@ -45,7 +45,7 @@ cd fastp
 ls *R1.fastq.gz | sed 's/_R1.fastq.gz//g' > ../samples.txt
 ```
 
-# Mig-seq primers for next trimming step in fasta format (migseq_primers.txt)
+### Mig-seq primers for next trimming step in fasta format (migseq_primers.txt)
 
 ```bash
 >ACT4TG-f
