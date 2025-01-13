@@ -9,6 +9,11 @@ Craig Barrett (1), Carrie Wu (2), Cynthia Huebner (1,3)
 2. University of Richmond
 3. USDA Forest Service
 
+## Some helpful links to software, tutorials, etc.
+https://github.com/btsinn/ISSRseq/wiki
+https://github.com/barrettlab/2021-Genomics-bootcamp/wiki/2022-Biol-320-Migseq-data-processing-commands-on-myco-server
+
+
 
 ## 1. Rename fastq files to get rid of _L001, _001, and underscore (_S). Only underscore should be _R1 and _R2.
 
